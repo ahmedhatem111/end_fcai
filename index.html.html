@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VIP | ختام العام الدراسي الثاني</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #f59e0b;
+            --gold-glow: rgba(245, 158, 11, 0.4);
+            --bg-dark: #020617;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 50% -20%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(56, 189, 248, 0.05) 0%, transparent 30%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .main-wrapper { width: 100%; max-width: 850px; text-align: center; }
+
+        .master-bar {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 12px 30px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            margin-bottom: 50px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .master-bar b { color: var(--gold); font-weight: 900; text-shadow: 0 0 10px var(--gold-glow); }
+
+        .glass-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 70px 40px;
+            backdrop-filter: blur(40px);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.6), inset 0 0 20px rgba(255,255,255,0.02);
+            position: relative;
+        }
+
+        h1#subjectName {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 50px;
+            line-height: 1.1;
+            background: linear-gradient(180deg, #fff 40%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .timer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 30px 5px;
+            position: relative;
+        }
+
+        .timer-item.seconds-box {
+            border-color: rgba(245, 158, 11, 0.3);
+            animation: pulse-glow 1s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { box-shadow: 0 0 15px rgba(245, 158, 11, 0.05); }
+            to { box-shadow: 0 0 35px rgba(245, 158, 11, 0.2); }
+        }
+
+        .num { font-size: 3.8rem; font-weight: 900; line-height: 1; font-variant-numeric: tabular-nums; }
+        .label { font-size: 0.85rem; color: #64748b; margin-top: 15px; font-weight: 700; }
+
+        /* تنسيق واجهة الفيديو النهائية */
+        #finishUI {
+            display: none;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .video-container {
+            width: 100%;
+            max-width: 350px; /* ليتناسب مع أبعاد الشورتس */
+            margin: 30px auto;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 40px var(--gold-glow);
+            position: relative;
+            padding-bottom: 177.77%; /* نسبة 9:16 للشورتس */
+            height: 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        .designer-credit { margin-top: 60px; font-size: 0.95rem; color: #475569; }
+        .designer-credit span { color: #fff; font-weight: 900; }
+
+        @media (max-width: 650px) {
+            .timer-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            h1#subjectName { font-size: 2.2rem; }
+            .num { font-size: 2.8rem; }
+            .glass-container { padding: 50px 20px; border-radius: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <div id="countdownArea">
+            <div class="master-bar">
+                <span>متبقي على انتهاء العام الدراسي الثاني:</span>
+                <b id="totalDays">0</b> يوم و <b id="totalHours">0</b> ساعة
+            </div>
+
+            <div class="glass-container" id="mainUI">
+                <span class="subject-tag" style="color: var(--gold); letter-spacing: 4px; font-weight: 700; display: block; margin-bottom: 20px;">الامتحان القادم</span>
+                <h1 id="subjectName">النمذجة والمحاكاة</h1>
+
+                <div class="timer-grid">
+                    <div class="timer-item"><span class="num" id="days">00</span><span class="label">أيام</span></div>
+                    <div class="timer-item"><span class="num" id="hours">00</span><span class="label">ساعات</span></div>
+                    <div class="timer-item"><span class="num" id="minutes">00</span><span class="label">دقائق</span></div>
+                    <div class="timer-item seconds-box">
+                        <span class="num" id="seconds" style="color: var(--gold);">00</span>
+                        <span class="label" style="color: var(--gold); opacity: 0.8;">ثواني</span>
+                    </div>
+                </div>
+
+                <div class="motivation-box" id="motivationBox" style="margin-top: 45px; font-size: 1.1rem; color: var(--gold); font-weight: 600;">
+                    <span id="motivationText">"باقي القليل على إتمام العام الدراسي"</span>
+                </div>
+
+                <div id="subDetail" style="margin-top: 40px; color: #475569; font-size: 0.95rem; border-top: 1px solid var(--border); padding-top: 25px;">جاري تحديد الموعد...</div>
+            </div>
+        </div>
+
+        <div id="finishUI">
+            <h1 style="font-size: 3rem; color: #fff; margin-bottom: 10px;">🎓 مبروك الفرج!</h1>
+            <p style="color: var(--gold); font-size: 1.2rem; font-weight: 600;">تم بحمد الله انتهاء العام الدراسي</p>
+            
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/7ary6LW6GkE?autoplay=1&loop=1&playlist=7ary6LW6GkE" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <div class="designer-credit">
+            إبداع المهندس <span>أحمد حاتم</span>
+        </div>
+    </div>
+
+    <script>
+        const mySchedule = [
+            { name: "النمذجة والمحاكاة", date: "2026-05-14T13:00:00" },
+            { name: "الفيزياء", date: "2026-05-16T13:00:00" },
+            { name: "قواعد البيانات", date: "2026-05-18T13:00:00" },
+            { name: "البرمجة المتوازية", date: "2026-05-20T13:00:00" }
+        ];
+
+        // التاريخ النهائي لانتهاء كل شيء
+        const END_DATE = new Date("2026-05-21T15:00:00").getTime();
+
+        const quotes = [
+            "باقي القليل على إتمام العام الدراسي الثاني",
+            "مجهودك يقاس بالخواتيم.. استمر",
+            "ثواني وتفصلنا عن الحلم.. ركز",
+            "عام دراسي شاق يوشك على الانتهاء بنجاح",
+            "أنت تصنع مستقبلك الآن.. لا تتوقف"
+        ];
+
+        function refresh() {
+            const now = new Date().getTime();
+            const totalDiff = END_DATE - now;
+
+            // التحقق من انتهاء العام الدراسي
+            if (totalDiff <= 0) {
+                document.getElementById('countdownArea').style.display = 'none';
+                document.getElementById('finishUI').style.display = 'block';
+                return;
+            }
+
+            // تحديث عداد الأيام والساعات العلوي
+            document.getElementById('totalDays').innerText = Math.floor(totalDiff / (1000 * 60 * 60 * 24));
+            document.getElementById('totalHours').innerText = Math.floor((totalDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+            // تحديث تفاصيل الامتحان الحالي
+            let current = mySchedule.find(s => new Date(s.date).getTime() > now);
+
+            if (current) {
+                document.getElementById('subjectName').innerText = current.name;
+                const diff = new Date(current.date).getTime() - now;
+                
+                document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+
+                const opt = { weekday: 'long', day: 'numeric', month: 'long' };
+                document.getElementById('subDetail').innerText = "الموعد الرسمي: " + new Date(current.date).toLocaleDateString('ar-EG', opt);
+            }
+        }
+
+        let qIdx = 0;
+        setInterval(() => {
+            qIdx = (qIdx + 1) % quotes.length;
+            const text = document.getElementById('motivationText');
+            if (text) {
+                text.style.opacity = 0;
+                setTimeout(() => {
+                    text.innerText = quotes[qIdx];
+                    text.style.opacity = 1;
+                }, 500);
+            }
+        }, 7000);
+
+        setInterval(refresh, 1000);
+        refresh();
+    </script>
+</body>
+</html>
